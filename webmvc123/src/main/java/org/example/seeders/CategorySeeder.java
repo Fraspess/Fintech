@@ -28,9 +28,9 @@ public class CategorySeeder implements CommandLineRunner {
             category1.setImage(fileService.load("https://klopotenko.com/wp-content/uploads/2025/04/salo-varene-img-1000x600.jpg?v=1743596316"));
 
             CategoryEntity category2 = new CategoryEntity();
-            category2.setName("Морозиво");
+            category2.setName("Потужні праски");
             category2.setSlug(slg.slugify(category2.getName()));
-            category2.setImage(fileService.load("https://profsystems.com.ua/images/stories/equipment/ice-cream/soft.jpg"));
+            category2.setImage(fileService.load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJvr9OeVYWZw1sMFglb8hI-hmZ3Qe3FpX9RA&s"));
 
 
             categoryRepository.save(category1);

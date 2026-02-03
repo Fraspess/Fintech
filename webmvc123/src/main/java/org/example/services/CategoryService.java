@@ -2,6 +2,8 @@ package org.example.services;
 
 import lombok.RequiredArgsConstructor;
 import org.example.dtos.category.CategoryItemDTO;
+import org.example.dtos.category.CreateCategoryDTO;
+import org.example.entities.CategoryEntity;
 import org.example.mappers.CategoryMapper;
 import org.example.repositories.ICategoryRepository;
 import org.springframework.stereotype.Service;
@@ -20,5 +22,11 @@ public class CategoryService {
                 .stream()
                 .map(categoryMapper::toDto)
                 .collect(Collectors.toList());
+    }
+
+    public void createCategory(CreateCategoryDTO categoryDTO){
+        System.out.println(categoryDTO);
+        CategoryEntity category = categoryMapper.fromCreateDto(categoryDTO);
+        categoryRepository.save(category);
     }
 }
