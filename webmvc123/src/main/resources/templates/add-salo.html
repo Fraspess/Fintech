@@ -1,29 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org/">
-<head>
-    <meta charset="UTF-8">
-    <title>Course </title>
-    <link rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-          crossorigin="anonymous">
-</head>
-<body>
-<div class="container">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<div layout:fragment="content" class="container">
     <h1>Категорії</h1>
     <hr>
     <h2>Створити категорію</h2>
+    <div >
+        <form action="#" th:action="@{/categories/save}" th:object="${CategoryEntity} "
+              method="POST" enctype="multipart/form-data">
+            <input type="text" th:field="*{name}"
+                   placeholder="Назва категорії" class="form-control mb-4 col-4 w-50">
+            <input type="file" accept="image/*" th:field="*{image}"
+                   placeholder="Картинка категорії" class="form-control mb-4 col-4 w-50">
 
-    <form action="#" th:action="@{/save}" th:object="${CategoryEntity} "
-          method="POST" enctype="multipart/form-data">
-        <input type="text" th:field="*{name}"
-               placeholder="Назва категорії" class="form-control mb-4 col-4">
-        <input type="file" accept="image/*" th:field="*{image}"
-               placeholder="Картинка категорії" class="form-control mb-4 col-4">
-
-        <button type="submit" class="btn btn-info col-2"> Зберегти категорію</button>
-    </form>
+            <button type="submit" class="btn btn-info col-2"> Зберегти категорію</button>
+        </form>
+    </div>
     <hr>
 </div>
-</body>
 </html>

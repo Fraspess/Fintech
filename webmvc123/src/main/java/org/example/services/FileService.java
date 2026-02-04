@@ -27,7 +27,7 @@ public class FileService {
     Map<String, Integer> sizes = Map.of(
             "small", 32,
             "medium", 100,
-            "large", 100
+            "large", 1000
     );
 
     public String load(MultipartFile file) {
