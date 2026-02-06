@@ -31,6 +31,6 @@ public class CategoryController {
     @PostMapping("save")
     public String save(CreateCategoryDTO dto){
         categoryService.createCategory(dto);
-        return "redirect:/categories";
+        return "redirect:/categories/";
     }
 }

@@ -11,9 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Mapper(componentModel = "spring")
 public abstract class CategoryMapper {
     @Autowired
-    protected FileService fileService;
+    private FileService fileService;
 
-    protected Slugify slg = Slugify.builder().transliterator(true).build();
+    private Slugify slg = Slugify.builder().transliterator(true).build();
     public abstract CategoryItemDTO toDto(CategoryEntity category);
 
     public CategoryEntity fromCreateDto(CreateCategoryDTO dto){

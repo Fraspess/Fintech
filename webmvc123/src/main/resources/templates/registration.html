@@ -1,0 +1,34 @@
+<html
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="layout">
+<body>
+<h1>Реєстрація</h1>
+<form layout:fragment="content" action="#" th:action="@{/user/save}" th:object="${user}" method="POST" enctype="multipart/form-data">
+    <div>
+        <label>Почта</label>
+        <input type="email" th:field="*{email}"/>
+    </div>
+
+    <div>
+        <label>Ім'я користувача</label>
+        <input th:field="*{username}"/>
+    </div>
+
+    <div>
+        <label>Аватарка користувача</label>
+        <input type="file" accept="image/*" th:field="*{image}"/>
+    </div>
+
+    <div>
+        <label>Пароль</label>
+        <input type="password" th:field="*{password}"/>
+    </div>
+    <div>
+        <label>Підтвердіть пароль</label>
+        <input type="password" th:field="*{confirmPassword}"/>
+    </div>
+
+    <button type="submit">Зареєструватись</button>
+</form>
+</body>
+</html>
