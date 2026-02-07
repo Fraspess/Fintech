@@ -27,16 +27,17 @@ public class SecurityConfig {
                                         "/" + uploadDir + "/**",
                                         "/forgot-password",
                                         "/reset-password",
-                                        "/user/registration"
+                                        "/user/registration",
+                                        "/user/save"
 //                                "/categories/list"
                                 ).permitAll()
                                 .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                                .loginPage("/user/login")
-                                .loginProcessingUrl("/user/login")
-                                .defaultSuccessUrl("/", true)
-                                .permitAll()
+                        .loginPage("/user/login")
+                        .loginProcessingUrl("/user/login")
+                        .defaultSuccessUrl("/", true)
+                        .permitAll()
                 )
 //                .logout(logout -> logout
 //                        .logoutUrl("/logout")
