@@ -20,22 +20,20 @@ public class SecurityConfig {
                                 .requestMatchers(
                                         "/register",
                                         "/",
-                                        "/user/login",
-                                        "/login",
+                                        "/users/login",
                                         "/categories/",
                                         "/css/**",
                                         "/" + uploadDir + "/**",
                                         "/forgot-password",
-                                        "/reset-password",
-                                        "/user/registration",
-                                        "/user/save"
+                                        "/users/registration",
+                                        "/users/reset-password"
 //                                "/categories/list"
                                 ).permitAll()
                                 .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                        .loginPage("/user/login")
-                        .loginProcessingUrl("/user/login")
+                        .loginPage("/users/login")
+                        .loginProcessingUrl("/users/login")
                         .defaultSuccessUrl("/", true)
                         .permitAll()
                 )

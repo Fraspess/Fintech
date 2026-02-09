@@ -1,9 +1,6 @@
 package org.example.mappers;
 
-import org.apache.catalina.User;
-import org.example.dtos.category.CreateCategoryDTO;
-import org.example.dtos.user.UserDTO;
-import org.example.entities.CategoryEntity;
+import org.example.dtos.user.UsersRegisterDTO;
 import org.example.entities.UserEntity;
 import org.example.services.FileService;
 import org.mapstruct.Mapper;
@@ -14,7 +11,7 @@ public abstract class UserMapper {
     @Autowired
     private FileService fileService;
 
-    public UserEntity fromCreateDto(UserDTO dto) {
+    public UserEntity fromCreateDto(UsersRegisterDTO dto) {
         if (dto == null)return null;
         UserEntity user = new UserEntity();
         if(dto.getUsername() == null) return null;

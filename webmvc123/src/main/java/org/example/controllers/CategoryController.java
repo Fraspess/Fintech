@@ -19,13 +19,13 @@ public class CategoryController {
     public String hello(Model model){
         var items = categoryService.getAll();
         model.addAttribute("categories", items);
-        return "salo-hello";
+        return "categories/salo-hello";
     }
     @GetMapping("add")
     public String addCategory(Model model){
         CreateCategoryDTO dto = new CreateCategoryDTO();
         model.addAttribute("CategoryEntity", dto);
-        return "add-salo";
+        return "categories/add-salo";
     }
 
     @PostMapping("save")

@@ -5,7 +5,7 @@ import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
 @Data
-public class UserDTO {
+public class UsersRegisterDTO {
     @NotNull
     private String username;
 
