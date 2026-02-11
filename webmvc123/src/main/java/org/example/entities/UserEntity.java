@@ -6,6 +6,7 @@ import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.sql.Date;
 import java.util.Collection;
 import java.util.List;
 
@@ -31,6 +32,8 @@ public class UserEntity implements UserDetails {
     private String password;
 
     private String resetPasswordToken;
+
+    private Date tokenExpireAt;
 
 
     //Тут ми вертаємо список дозволів, які має користувач

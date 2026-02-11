@@ -26,7 +26,9 @@ public class SecurityConfig {
                                         "/" + uploadDir + "/**",
                                         "/forgot-password",
                                         "/users/registration",
-                                        "/users/reset-password"
+                                        "/users/reset-password",
+                                        "/users/update-password",
+                                        "/users/reset-password-sent"
 //                                "/categories/list"
                                 ).permitAll()
                                 .anyRequest().authenticated()

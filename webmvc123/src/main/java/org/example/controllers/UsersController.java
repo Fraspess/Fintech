@@ -42,12 +42,19 @@ public class UsersController {
     }
 
     @PostMapping("/reset-password")
-    public String resetPasswordEmail(String email){
+    public String resetPassword(String email){
+        return "redirect:/users/reset-password-sent";
+    }
+
+    @GetMapping("/reset-password-sent")
+    public String resetPasswordSent(){return "users/resetPasswordCheckEmail";}
+
+    @GetMapping("/update-password")
+    public String updatePasswordForm(){
         return "";
     }
 
-    public String updatePasswordRequest(){
-        return "";
-    }
+    @PostMapping("/update-password")
+    public String updatePasswordRequest() {return "";}
 
 }
