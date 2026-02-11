@@ -1,6 +1,8 @@
 package org.example.controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.example.dtos.user.ForgotPasswordDTO;
 import org.example.dtos.user.UsersRegisterDTO;
 import org.example.services.UserService;
 import org.springframework.stereotype.Controller;
@@ -37,12 +39,14 @@ public class UsersController {
     }
 
     @GetMapping("/reset-password")
-    public String resetPasswordRequestForm(){
+    public String resetPasswordRequestForm(Model model){
+        model.addAttribute("forgotPassword", new ForgotPasswordDTO());
         return "users/resetPasswordRequest";
     }
 
     @PostMapping("/reset-password")
-    public String resetPassword(String email){
+    public String resetPassword(ForgotPasswordDTO dto, HttpServletRequest request){
+        userService.forgotPassword(dto, request);
         return "redirect:/users/reset-password-sent";
     }
 

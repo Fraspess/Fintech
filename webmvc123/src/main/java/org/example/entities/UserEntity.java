@@ -32,10 +32,6 @@ public class UserEntity implements UserDetails {
     private String password;
 
     private String resetPasswordToken;
-
-    private Date tokenExpireAt;
-
-
     //Тут ми вертаємо список дозволів, які має користувач
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
