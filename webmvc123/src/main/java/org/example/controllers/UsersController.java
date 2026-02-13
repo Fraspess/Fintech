@@ -1,15 +1,16 @@
 package org.example.controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.dtos.user.ForgotPasswordDTO;
+import org.example.dtos.user.ResetPasswordDTO;
 import org.example.dtos.user.UsersRegisterDTO;
 import org.example.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -38,27 +39,45 @@ public class UsersController {
         return "users/login";
     }
 
-    @GetMapping("/reset-password")
-    public String resetPasswordRequestForm(Model model){
+    @GetMapping("/forgot-password")
+    public String forgotPasswordRequestForm(Model model){
         model.addAttribute("forgotPassword", new ForgotPasswordDTO());
-        return "users/resetPasswordRequest";
+        return "users/forgotPassword";
+    }
+
+    @PostMapping("/forgot-password")
+    public String resetPassword(ForgotPasswordDTO dto, HttpServletRequest request){
+        userService.forgotPassword(dto, request);
+        return "users/forgotPasswordCheckEmail";
+    }
+
+
+    @GetMapping("/reset-password")
+    public String resetPasswordForm(@RequestParam("token") String token, Model model) {
+        ResetPasswordDTO dto = new ResetPasswordDTO();
+        dto.setToken(token);
+        model.addAttribute("resetPasswordDTO", dto);
+        return "users/resetPassword";
     }
 
     @PostMapping("/reset-password")
-    public String resetPassword(ForgotPasswordDTO dto, HttpServletRequest request){
-        userService.forgotPassword(dto, request);
-        return "redirect:/users/reset-password-sent";
+    public String resetPasswordSubmit(
+            @Valid @ModelAttribute ResetPasswordDTO resetPasswordDTO,
+            BindingResult result,
+            Model model) {
+
+        if (result.hasErrors()) {
+            return "users/resetPassword";
+        }
+
+        boolean success = userService.resetPassword(resetPasswordDTO);
+        if (success) {
+            model.addAttribute("message", "Пароль успішно змінено! Тепер ви можете увійти.");
+            return "users/login";
+        } else {
+            model.addAttribute("error", "Токен недійсний або паролі не співпадають.");
+            return "users/resetPassword";
+        }
     }
-
-    @GetMapping("/reset-password-sent")
-    public String resetPasswordSent(){return "users/resetPasswordCheckEmail";}
-
-    @GetMapping("/update-password")
-    public String updatePasswordForm(){
-        return "";
-    }
-
-    @PostMapping("/update-password")
-    public String updatePasswordRequest() {return "";}
 
 }

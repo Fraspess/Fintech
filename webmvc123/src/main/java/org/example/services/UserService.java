@@ -46,21 +46,25 @@ public class UserService implements UserDetailsService {
         );
     }
 
+
     public boolean forgotPassword(ForgotPasswordDTO dto, HttpServletRequest request) {
+        // шукаємо користувача по email
         Optional<UserEntity> userOpt = userRepository.findByEmail(dto.getEmail());
         if (userOpt.isEmpty()) {
             return false;
         }
 
         UserEntity user = userOpt.get();
-
+        // генеруємо токен
         String token = UUID.randomUUID().toString();
+        // зберігаємо токен в базу даних
         user.setResetPasswordToken(token);
         userRepository.save(user);
 
+        // отримуємо посилання на наш сайт
         String siteUrl = getSiteUrl(request);
-
-        String resetLink = siteUrl + "/reset-password?token=" + token;
+        // посилання для відновлення паролю
+        String resetLink = siteUrl + "/users/reset-password?token=" + token;
 
         String subject = "Відновлення паролю";
         String body = """
@@ -86,14 +90,21 @@ public class UserService implements UserDetailsService {
             </div>
             """.formatted(user.getUsername(), resetLink, resetLink, resetLink, Calendar.getInstance().get(Calendar.YEAR));
 
+        // створюємо повідомлення
         EmailMessage email = new EmailMessage();
+        // кому
         email.setTo(user.getEmail());
+        // тема
         email.setSubject(subject);
+        // тіло повідомлення
         email.setBody(body);
 
+
         SmtpService smtpService = new SmtpService();
+        // відправляємо повідомлення на почту
         boolean sent = smtpService.sendEmail(email);
 
+        // debug
         if (sent) {
             System.out.println("Reset password email sent to " + user.getEmail());
         } else {
@@ -121,19 +132,24 @@ public class UserService implements UserDetailsService {
         return url.toString();
     }
 
+
     public boolean resetPassword(ResetPasswordDTO dto) {
         if (!dto.getNewPassword().equals(dto.getConfirmPassword())) {
             return false;
         }
 
+        // шукаємо юзера по токену
         Optional<UserEntity> userOpt = userRepository.findByResetPasswordToken(dto.getToken());
         if (userOpt.isEmpty()) {
             return false;
         }
 
         UserEntity user = userOpt.get();
+        // ставимо новий пароль в базу даних
         user.setPassword(passwordEncoder.encode(dto.getNewPassword()));
+        // видаляем токен з бази даних
         user.setResetPasswordToken(null);
+        // зберігаємо в базу даних
         userRepository.save(user);
 
         return true;

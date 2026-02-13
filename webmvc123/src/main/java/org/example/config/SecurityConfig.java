@@ -27,7 +27,7 @@ public class SecurityConfig {
                                         "/forgot-password",
                                         "/users/registration",
                                         "/users/reset-password",
-                                        "/users/update-password",
+                                        "/users/forgot-password",
                                         "/users/reset-password-sent"
 //                                "/categories/list"
                                 ).permitAll()
